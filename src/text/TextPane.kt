@@ -92,6 +92,13 @@ class TextPane : JPanel() {
             return
 
         val data = TextData.parseFile(file)
+        //データが空ならデフォルトの項目を追加する
+        if(data.isEmpty()) {
+            data["Exp"] = ""
+            data["Memo"] = ""
+            data["Tips"] = ""
+            data["Other"] = ""
+        }
         setSplit(data.filter { it.key != "Date" }.map { it.key })
         data.filter { it.key != "Date" }.forEach { texts[it.key]?.text = it.value}
 

@@ -51,6 +51,10 @@ object TextData {
         //改行した内容を格納するため、前の状態でのキーを保存しておく必要がある
         var preKey : String = ""
 
+        //テキストが空なら殻を返す
+        if(text == "")
+            return result
+
         //各行統合チェックしながら、データにパースする
         text.lines().forEach {
             val eq = it.indexOf('=')
@@ -93,7 +97,7 @@ object TextData {
         data.forEachLine {
             if(it.startsWith("[") && it.contains("]")) {
                 val id = it.substring(it.indexOf('[') + 1, it.indexOf(']')).split(',')
-                isWritable = id.size ==2 && (id[0] == file.name || id[1] == sha)
+                isWritable = id.size ==2 && (id[0] == (".\\" + file.relativeTo(File("./").absoluteFile).path) || id[1] == sha)
             } else if(isWritable) {
                 text += (if(text.isNotEmpty()) "\n" else "") + it
             }
