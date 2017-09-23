@@ -131,7 +131,7 @@ object TextData {
                 if(it.startsWith("[") && it.contains("]")) {
                     //IDを識別し、書き込み領域内かを判定
                     val id = it.substring(it.indexOf('[') + 1, it.indexOf(']')).split(',')
-                    isWritable = id.size ==2 && (id[0] == file.name || id[1] == sha)
+                    isWritable = id.size ==2 && (id[0] == (".\\" + file.relativeTo(File("./").absoluteFile).path) || id[1] == sha)
                     if(!isWritable)
                         text += (if (text.isNotEmpty()) "\n" else "") + it
 
